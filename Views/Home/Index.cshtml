@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    HomeController homeController = new HomeController();
-    List<Root> competitions = homeController.GetCompetitions();
-
-    foreach (Root competition in competitions)
+    CompetitionController competitionController = new CompetitionController();
+    List<Root> competitions = competitionController.GetAllCompetitions();
+    <ul>
+    @foreach (Root competition in competitions)
     {
-        <p>@competition.name</p>
+        <li>@Html.ActionLink(competition.name, "Wedstrijd", new { ID = competition.id})</li>
     }
+    </ul>
 }

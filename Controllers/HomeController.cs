@@ -38,39 +38,16 @@ namespace schaatswedstrijden.Controllers
             return View();
         }
 
+        public ActionResult Wedstrijd(string ID)
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        public List<Root> GetCompetitions()
-        {
-            WebRequest request = WebRequest.Create("https://knsbregistrations.azurewebsites.net/api/competitions");
-            WebResponse response = request.GetResponse();
-            List<Root> dataObjects;
-
-            using (Stream dataStream = response.GetResponseStream())
-            {
-                // Open the stream using a StreamReader for easy access.
-                StreamReader reader = new StreamReader(dataStream);
-                // Read the content.
-                string responseFromServer = reader.ReadToEnd();
-                dataObjects = JsonConvert.DeserializeObject<List<Root>>(responseFromServer);
-                foreach (Root competition in dataObjects.ToList())
-                {
-                    if(competition.discipline != "SpeedSkating.LongTrack")
-                    {
-                        dataObjects.Remove(competition);
-                    }
-                }
-            }
-
-            // Close the response.
-            response.Close();
-            List<Root> sortedList = dataObjects.OrderBy(x => x.ends).ToList();
-
-            return sortedList;
-        }
+        
     }
 }

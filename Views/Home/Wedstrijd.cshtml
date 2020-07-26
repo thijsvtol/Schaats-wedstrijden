@@ -1,0 +1,50 @@
+﻿@using schaatswedstrijden.Controllers;
+
+@{
+    string id = ViewContext.RouteData.Values["ID"].ToString();
+    CompetitionController competitionController = new CompetitionController();
+    Root competition = competitionController.GetCompetition(id);
+}
+
+<h1>@competition.name</h1>
+<p>Start: @competition.starts.AddHours(1)</p>
+<p>Eindigt: @competition.ends.AddHours(1)</p>
+<br />
+<p>Gaat open om: @competition.settings.opens.AddHours(1)</p>
+<p>Sluit om: @competition.settings.closes.AddHours(1)</p>
+<p>Afmelden tot: @competition.settings.withdrawUntil.AddHours(1)</p>
+<br />
+<p>Max aantal deelnemers: @competition.settings.maxCompetitors</p>
+<br />
+<p>Er mag voor meerde afstandscombinaties worden ingeschreven: @competition.settings.allowMultipleCombinations</p>
+<br />
+<h2>Organisatie</h2>
+<p>Organisatie: @competition.settings.contact.organizationName</p>
+<p>Contact persoon: @competition.settings.contact.name.firstName @competition.settings.contact.name.surnamePrefix @competition.settings.contact.name.surname</p>
+<p>Email: @competition.settings.contact.email</p>
+<p>Telefoon: @competition.settings.contact.phone</p>
+<p>Website: @competition.settings.contact.url</p>
+<p>Extra: @competition.settings.contact.extra</p>
+<br />
+<p>Extra informatie: @competition.settings.extra</p>
+<br />
+<p>Starter: @competition.defaultStarter</p>
+<p>Scheidsrechter: @competition.defaultReferee1</p>
+<p>Assistent scheidsrechter: @competition.defaultReferee2</p>
+<br />
+<p>Wedstrijd code: @competition.code</p>
+<p>Uitslag status: @competition.resultsStatus</p>
+<p>Uitslag is officieel gemaakt op: @competition.madeOfficial.Value.AddHours(1)</p>
+
+@if (competition.settings.invitationIntroduction != null || competition.settings.invitationIntroduction != "")
+{
+    <h2>Uitnodigingsmail</h2>
+    <p>@Html.Raw(competition.settings.invitationIntroduction)</p>
+    <p>@Html.Raw(competition.settings.invitationFooter)</p>
+    <br />
+}
+
+<h2>Locatie</h2>
+<p>Baan: @competition.venue.name, @competition.venue.address.city</p>
+<p>Address: @competition.venue.address.line1, @competition.venue.address.line2  @competition.venue.address.postalCode </p>
+<p>@competition.location</p>
