@@ -1,0 +1,12 @@
+﻿@using schaatswedstrijden.Controllers;
+
+@{
+    ViewData["Title"] = "Home Page";
+    HomeController homeController = new HomeController();
+    List<Root> competitions = homeController.GetCompetitions();
+
+    foreach (Root competition in competitions)
+    {
+        <p>@competition.name</p>
+    }
+}
