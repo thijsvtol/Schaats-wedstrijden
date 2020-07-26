@@ -34,9 +34,18 @@
 <br />
 <p>Wedstrijd code: @competition.code</p>
 <p>Uitslag status: @competition.resultsStatus</p>
-<p>Uitslag is officieel gemaakt op: @competition.madeOfficial.Value.AddHours(1)</p>
 
-@if (competition.settings.invitationIntroduction != null || competition.settings.invitationIntroduction != "")
+@if(competition.madeOfficial == null)
+{
+    <p>Uitslag is nog niet officeel gemaakt.</p>
+}
+else
+{
+    <p>Uitslag is officieel gemaakt op: @competition.madeOfficial.Value.AddHours(1)</p>
+}
+
+
+@if (competition.settings.invitationIntroduction != null)
 {
     <h2>Uitnodigingsmail</h2>
     <p>@Html.Raw(competition.settings.invitationIntroduction)</p>
