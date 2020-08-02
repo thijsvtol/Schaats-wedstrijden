@@ -43,6 +43,11 @@ namespace schaatswedstrijden.Controllers
             return View();
         }
 
+        public ActionResult Deelnemers(string ID)
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

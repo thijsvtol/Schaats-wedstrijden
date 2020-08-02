@@ -46,7 +46,6 @@ namespace schaatswedstrijden.Controllers
             WebRequest request = WebRequest.Create("https://knsbregistrations.azurewebsites.net/api/competitions/"+id);
             WebResponse response = request.GetResponse();
             Root competition;
-
             using (Stream dataStream = response.GetResponseStream())
             {
                 // Open the stream using a StreamReader for easy access.
@@ -57,6 +56,23 @@ namespace schaatswedstrijden.Controllers
             }
 
             return competition;
+        }
+
+        public List<DistanceCombinationCompetitors> GetCompetitors(string id)
+        {
+            WebRequest request = WebRequest.Create("https://knsbregistrations.azurewebsites.net/api/competitions/" + id +"/competitors");
+            WebResponse response = request.GetResponse();
+            List<DistanceCombinationCompetitors> competitors;
+            using (Stream dataStream = response.GetResponseStream())
+            {
+                // Open the stream using a StreamReader for easy access.
+                StreamReader reader = new StreamReader(dataStream);
+                // Read the content.
+                string responseFromServer = reader.ReadToEnd();
+                competitors = JsonConvert.DeserializeObject<List<DistanceCombinationCompetitors>>(responseFromServer);
+            }
+
+            return competitors;
         }
     }
 }

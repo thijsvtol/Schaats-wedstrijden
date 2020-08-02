@@ -1,59 +1,114 @@
 ﻿@using schaatswedstrijden.Controllers;
+@using System.Globalization;
 
 @{
     string id = ViewContext.RouteData.Values["ID"].ToString();
     CompetitionController competitionController = new CompetitionController();
     Root competition = competitionController.GetCompetition(id);
+    CultureInfo ci = new CultureInfo("nl-NL");
 }
 
 <h1>@competition.name</h1>
-<p>Start: @competition.starts.AddHours(1)</p>
-<p>Eindigt: @competition.ends.AddHours(1)</p>
+<h4 style="color:gray">@competition.starts.AddHours(1).ToString("dddd, dd MMMM yyyy", ci)</h4>
+<a href="https://emandovantage.com/api/competitions/@id/reports/CompetitorList/Pdf?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Deelnemers-_PDF_-blue" /></a>
+<a href="https://emandovantage.com/api/competitions/@id/reports/Draws/Pdf?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Startlijst-_PDF_-blue" /></a>
+<a href="https://emandovantage.com/api/competitions/@id/reports/FillIns/Pdf?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Jurylijst-_PDF_-blue" /></a>
+<a href="https://emandovantage.com/api/competitions/@id/reports/Results/Pdf?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Uitslag-_PDF_-blue" /></a>
 <br />
-<p>Gaat open om: @competition.settings.opens.AddHours(1)</p>
-<p>Sluit om: @competition.settings.closes.AddHours(1)</p>
-<p>Afmelden tot: @competition.settings.withdrawUntil.AddHours(1)</p>
-<br />
-<p>Max aantal deelnemers: @competition.settings.maxCompetitors</p>
-<br />
-<p>Er mag voor meerde afstandscombinaties worden ingeschreven: @competition.settings.allowMultipleCombinations</p>
-<br />
-<h2>Organisatie</h2>
-<p>Organisatie: @competition.settings.contact.organizationName</p>
-<p>Contact persoon: @competition.settings.contact.name.firstName @competition.settings.contact.name.surnamePrefix @competition.settings.contact.name.surname</p>
-<p>Email: @competition.settings.contact.email</p>
-<p>Telefoon: @competition.settings.contact.phone</p>
-<p>Website: @competition.settings.contact.url</p>
-<p>Extra: @competition.settings.contact.extra</p>
-<br />
-<p>Extra informatie: @competition.settings.extra</p>
-<br />
-<p>Starter: @competition.defaultStarter</p>
-<p>Scheidsrechter: @competition.defaultReferee1</p>
-<p>Assistent scheidsrechter: @competition.defaultReferee2</p>
-<br />
-<p>Wedstrijd code: @competition.code</p>
-<p>Uitslag status: @competition.resultsStatus</p>
+<a href="https://emandovantage.com/api/competitions/@id/reports/CompetitorList/5?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Deelnemers-XLS-blue" /></a>
+<a href="https://emandovantage.com/api/competitions/@id/reports/Draws/5?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Startlijst-XLS-blue" /></a>
+<a href="https://emandovantage.com/api/competitions/@id/reports/FillIns/5?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Jurylijst-XLS-blue" /></a>
+<a href="https://emandovantage.com/api/competitions/@id/reports/Results/5?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Uitslag-XLS-blue" /></a>
+<br /><br />
+<a href="/Home/Deelnemers/@id"><img src="https://dabuttonfactory.com/button.png?t=Deelnemers&f=Open+Sans-Bold&ts=26&tc=fff&hp=45&vp=20&c=7&bgt=unicolored&bgc=157ed7" width="150" alt="Deelnemers" /></a>     
+<a href="https://knsbregistrations.azurewebsites.net/#/wedstrijd/@id/inschrijven/kies-licentie"><img src="https://dabuttonfactory.com/button.png?t=Inschrijven&f=Open+Sans-Bold&ts=26&tc=fff&hp=45&vp=20&c=7&bgt=unicolored&bgc=157ed7" width="150" alt="Inschrijven" /></a>
+<br /><br />
 
-@if(competition.madeOfficial == null)
-{
-    <p>Uitslag is nog niet officeel gemaakt.</p>
-}
-else
-{
-    <p>Uitslag is officieel gemaakt op: @competition.madeOfficial.Value.AddHours(1)</p>
-}
+      <section class="context">
+          <h2>Locatie</h2>
+          <p>@competition.venue.name, @competition.venue.address.city</p>
+          <p>@competition.venue.address.line1, @competition.venue.address.line2  @competition.venue.address.postalCode </p>
+          <p>@competition.location</p>
+          <h2>Wedstrijd informatie</h2>
+
+          <aside style="float:left; margin-right: 50px;">
+              <p><strong>Start: </strong>@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci) </p>
+              <p><strong>Eindigt: </strong>@competition.ends.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+              <br />
+          </aside>
+          <aside>
+              <p><strong>Gaat open om: </strong>@competition.settings.opens.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+              <p><strong>Sluit om: </strong>@competition.settings.closes.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+              <p><strong>Afmelden tot: </strong>@competition.settings.withdrawUntil.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+              <br />
+          </aside>
+          
+          <p>
+              <strong>Max aantal deelnemers:</strong>
+              @if (competition.settings.maxCompetitors == null)
+              {
+                  <i>geen</i>
+              }
+              else
+              {
+                  <i>@competition.settings.maxCompetitors</i>
+              }
+          </p>
+          <p>
+              <strong>Er mag voor meerde afstandscombinaties worden ingeschreven:</strong>
+              @if (competition.settings.allowMultipleCombinations)
+              {
+                  <i>Ja</i>
+              }
+              else
+              {
+                  <i>Nee</i>
+              }
+          </p>
+          <br />
+          <p><strong>Extra informatie: </strong>@competition.settings.extra</p>
+          <br />
+          <p>Starter: @competition.defaultStarter</p>
+          <p>Scheidsrechter: @competition.defaultReferee1</p>
+          <p>Assistent scheidsrechter: @competition.defaultReferee2</p>
+          <br />
+          <p>Wedstrijd code: @competition.code</p>
+          <p>Uitslag status: @competition.resultsStatus</p>
+
+          @if (competition.madeOfficial == null)
+          {
+              <p>Uitslag is nog niet officeel gemaakt.</p>
+          }
+          else
+          {
+              <p>Uitslag is officieel gemaakt op: @competition.madeOfficial.Value.AddHours(1)</p>
+          }
+          <br />
+      </section>
+
+<section class="context">
+    <h2>Organisatie</h2>
+    <p>Organisatie: @competition.settings.contact.organizationName</p>
+    <p>Contact persoon: @competition.settings.contact.name.firstName @competition.settings.contact.name.surnamePrefix @competition.settings.contact.name.surname</p>
+    <p>Email: <a href="mailto:@competition.settings.contact.email">@competition.settings.contact.email</a></p>
+    <p>Telefoon: @competition.settings.contact.phone</p>
+    <p>Website: <a href="@competition.settings.contact.url">@competition.settings.contact.url</a></p>
+    <p>Extra: @competition.settings.contact.extra</p>
+    
+    
+</section>
+
 
 
 @if (competition.settings.invitationIntroduction != null)
 {
-    <h2>Uitnodigingsmail</h2>
-    <p>@Html.Raw(competition.settings.invitationIntroduction)</p>
-    <p>@Html.Raw(competition.settings.invitationFooter)</p>
-    <br />
+    <section class="context">
+        <h2>Uitnodigingsmail</h2>
+        <p>@Html.Raw(competition.settings.invitationIntroduction)</p>
+        <p>@Html.Raw(competition.settings.invitationFooter)</p>
+        <br />
+    </section>
+    
 }
 
-<h2>Locatie</h2>
-<p>Baan: @competition.venue.name, @competition.venue.address.city</p>
-<p>Address: @competition.venue.address.line1, @competition.venue.address.line2  @competition.venue.address.postalCode </p>
-<p>@competition.location</p>
+
