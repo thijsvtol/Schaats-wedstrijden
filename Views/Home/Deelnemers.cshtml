@@ -8,6 +8,7 @@
     CultureInfo ci = new CultureInfo("nl-NL");
     int counter = 0;
     string css = "tg-0pky";
+    string style = "";
     int total = 0;
 }
 
@@ -47,43 +48,56 @@
                         css = "tg-dg7a";
                     }
 
+                    if (comp.status == 0)
+                    {
+                        style = "color: gray;";
+                    }
+                    else if (comp.status == 2)
+                    {
+                        style = "text-decoration: line-through;";
+                    }
+                    else
+                    {
+                        style = null;
+                    }
+
                     <tr>
-                        <td class="@css">@comp.competitor.startNumber</td>
-                        <td class="@css">@comp.competitor.fullName</td>
-                        <td class="@css">@comp.competitor.category</td>
-                        <td class="@css">@comp.competitor.clubFullName</td>
-                        <td class="@css">@comp.competitor.licenseKey</td>
-                        <td class="@css">@comp.competitor.nationalityCode</td>
-                        <td class="@css">
+                        <td style="@style" class="@css">@comp.competitor.startNumber</td>
+                        <td style="@style" class="@css">@comp.competitor.fullName</td>
+                        <td style="@style" class="@css">@comp.competitor.category</td>
+                        <td style="@style" class="@css">@comp.competitor.clubFullName</td>
+                        <td style="@style" class="@css">@comp.competitor.licenseKey</td>
+                        <td style="@style" class="@css">@comp.competitor.nationalityCode</td>
+                        <td style="@style" class="@css">
                             @comp.competitor.added.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)
                             @if (comp.competitor.source == 1)
                             {
-                                <br /><i>Toegevoegd door organisatie</i>
+                                <br /><i style="@style">Toegevoegd door organisatie</i>
                             }
                         </td>
                         <td class="@css">
                             @if (comp.status == 0)
                             {
-                                <p>niet bevestigd</p>
+                                <p style="@style">niet bevestigd</p>
                             }
                             else if (comp.status == 1)
                             {
-                                <p>bevestigd</p>
+                                <p style="@style">bevestigd</p>
                             }
                             else if (comp.status == 2)
                             {
-                                <p>afgemeld</p>
+                                <p style="@style">afgemeld</p>
                             }
                         </td>
-                        <td class="@css">@comp.competitor.transponder1, @comp.competitor.transponder2</td>
-                        <td class="@css"><i>@comp.reserve</i></td>
+                        <td  style="@style" class="@css">@comp.competitor.transponder1, @comp.competitor.transponder2</td>
+                        <td  style="@style" class="@css"><i>@comp.reserve</i></td>
                     </tr>
                     counter++;
                 }
             </tbody>
         </table>
         @{total += sortedList.Where(x => x.competitor.status == 1).Count(); }
-        <p>@sortedList.Where(x => x.competitor.status == 1).Count() bevestigd, @sortedList.Where(x => x.competitor.status == 0).Count() onbevestigd en @sortedList.Where(x => x.competitor.status == 2).Count() afmeldingen</p>
+        <p>@sortedList.Where(x => x.status == 1).Count() bevestigd, @sortedList.Where(x => x.status == 0).Count() onbevestigd en @sortedList.Where(x => x.status == 2).Count() afmeldingen</p>
     </div>
 }
 
