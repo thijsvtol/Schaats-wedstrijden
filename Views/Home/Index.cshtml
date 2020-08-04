@@ -1,31 +1,78 @@
 ﻿@using schaatswedstrijden.Controllers;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "Home Page";
     CompetitionController competitionController = new CompetitionController();
-    List<Root> competitions = competitionController.GetAllCompetitions();
+    List<Root> comp = competitionController.GetAllCompetitions();
     int counter = 0;
     string style = "tg-buh4";
+    string cookieVenue = Context.Request.Cookies["venue"];
+    List<Root> competitions;
+    if(cookieVenue == null || cookieVenue == "")
+    {
+        competitions = comp;
+    }
+    else
+    {
+        foreach (Root root in comp.ToList())
+        {
+            try
+            {
+                string s = root.venue.code;
+            }
+            catch
+            {
+                comp.Remove(root);
+            }
+        }
+        competitions = comp.Where(x => x.venue.code == cookieVenue).ToList();
+    }
 }
 
-<h1>Wedstrijden</h1>
-    <div class="tg-wrap">
-        <table class="tg">
-            <tbody>
-                @foreach (Root competition in competitions)
+
+<h1 id="wedstrijd">Wedstrijden</h1>
+<select onchange="val()" id="select_id">
+    <option value="">Alle banen</option>
+    <option value="ALK">Alkmaar (IJsbaan de Meent)</option>
+    <option value="AMS">Amsterdam (Stichting IJscomplex Jaap Edenbaan)</option>
+    <option value="ASS">Assen (Sport- en Evenementencentrum de Bonte Wever)</option>
+    <option value="BRE">Breda (Kunstijsbaan Breda)</option>
+    <option value="DNH">Den Haag (De Uithof)</option>
+    <option value="DEV">Deventer (Sport- en Recreatiecentrum de Scheg)</option>
+    <option value="DRO">Dronten (Leisure World Ice Center)</option>
+    <option value="EVN">Eindhoven (IJssportcentrum Eindhoven)</option>
+    <option value="ENS">Enschede (IJsbaan Twente)</option>
+    <option value="GEL">Geleen (Glanerbrook)</option>
+    <option value="GRO">Groningen (Kardinge)</option>
+    <option value="HAA">Haarlem (Kunstijsbaan Kennemerland)</option>
+    <option value="HVN">Heerenveen (Thialf)</option>
+    <option value="HRN">Hoorn (Kunstijsbaan de Westfries)</option>
+    <option value="LEE">Leeuwarden (Elfstedenhal)</option>
+    <option value="NYM">Nijmegen (Triavium)</option>
+    <option value="TIL">Tilburg (Ireen Wüst IJsbaan)</option>
+    <option value="UTR">Utrecht (Vechtsebanen)</option>
+</select>
+<br /><br />
+<div class="tg-wrap">
+    <table id="competitions" class="tg" style="width: 100%;">
+        <tbody>
+            @foreach (Root competition in competitions)
+            {
+                if (counter % 2 == 0)
                 {
-                    if (counter % 2 == 0)
-                    {
-                        style = "tg-buh4";
-                    }
-                    else
-                    {
-                        style = "tg-0lax";
-                    }
+                    style = "tg-buh4";
+                }
+                else
+                {
+                    style = "tg-0lax";
+                }
                 <tr>
                     <td class="@style wi">@Html.ActionLink(competition.name, "Wedstrijd", new { ID = competition.id })</td>
-                    
-                    @try {
+
+                    @try
+                    {
                         <td class="@style">@competition.venue.address.city</td>
                     }
                     catch (Exception e)
@@ -44,9 +91,9 @@
                             <a href="/Home/Deelnemers/@competition.id">&#9924 Deelnemers</a>
                         </td>
                         <td class="@style">
-                            @if(competition.resultsStatus == 2)
+                            @if (competition.resultsStatus == 2)
                             {
-                            <a href="https://emandovantage.com/api/competitions/@competition.id/reports/Results/Pdf?optionalColumns=ClubShortName">&#9782 Uitslag</a>
+                                <a href="https://emandovantage.com/api/competitions/@competition.id/reports/Results/Pdf?optionalColumns=ClubShortName">&#9782 Uitslag</a>
                             }
                         </td>
                     }
@@ -69,8 +116,8 @@
                         <td class="@style"></td>
                     }
                 </tr>
-                    counter++;
-                }
-            </tbody>
-        </table>
-    </div>
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>
