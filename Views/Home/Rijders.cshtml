@@ -1,0 +1,36 @@
+﻿@using schaatswedstrijden.Controllers;
+
+@{
+    try
+    {
+        string skater = ViewContext.RouteData.Values["id"].ToString();
+        CompetitionController competitionController = new CompetitionController();
+        Skaters skaters = competitionController.GetSkater(skater);
+        Records records = competitionController.GetPersonalBests(skaters.skaters.FirstOrDefault().id);
+        <h1>@skater</h1>
+        <p>@skaters.skaters.FirstOrDefault().country  - @skaters.skaters.FirstOrDefault().category </p>
+        <h2>PR's</h2>
+        <table style="width:100%">
+            @foreach (Record record in records.records)
+            {
+            <tr>
+                <td>@record.distance</td>
+                <td>@record.time</td>
+                <td>@record.date</td>
+                <td>@record.location</td>
+            </tr>
+            }
+        </table>
+    }
+    catch
+    {
+        <h1>Rijder opzoeken</h1>
+        <form onsubmit="return false">
+            Naam: <input type="text" name="name" id="name" />
+            <input type="submit" onclick="getSkater()" />
+        </form>
+    }
+
+    ViewData["Title"] = "Rijder";
+}
+

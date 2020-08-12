@@ -6,6 +6,7 @@
     CompetitionController competitionController = new CompetitionController();
     Root competition = competitionController.GetCompetition(id);
     CultureInfo ci = new CultureInfo("nl-NL");
+    ViewData["Title"] = competition.name;
 }
 
 <h1>@competition.name</h1>

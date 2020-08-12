@@ -2,6 +2,7 @@
 @using System.Globalization;
 
 @{
+    ViewData["Title"] = "Deelnemers";
     string id = ViewContext.RouteData.Values["ID"].ToString();
     CompetitionController competitionController = new CompetitionController();
     List<DistanceCombinationCompetitors> competitors = competitionController.GetCompetitors(id);
@@ -63,7 +64,7 @@
 
                     <tr>
                         <td style="@style" class="@css">@comp.competitor.startNumber</td>
-                        <td style="@style" class="@css">@comp.competitor.fullName</td>
+                        <td style="@style" class="@css">@Html.ActionLink(comp.competitor.fullName, "Rijders", new { id = comp.competitor.fullName })</td>
                         <td style="@style" class="@css">@comp.competitor.category</td>
                         <td style="@style" class="@css">@comp.competitor.clubFullName</td>
                         <td style="@style" class="@css">@comp.competitor.licenseKey</td>

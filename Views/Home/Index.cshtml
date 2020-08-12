@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Http;
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Wedstrijden";
     CompetitionController competitionController = new CompetitionController();
     List<Root> comp = competitionController.GetAllCompetitions();
     int counter = 0;
@@ -97,7 +97,7 @@
                             }
                         </td>
                     }
-                    else if (competition.settings.opens.AddHours(1) > DateTime.Now)
+                    else if (competition.settings.opens.AddHours(1) < DateTime.Now)
                     {
                         <td class="@style">
                             <a href="https://inschrijven.schaatsen.nl/#/wedstrijd/@competition.id/inschrijven/kies-licentie">&#9998 Inschrijven</a>

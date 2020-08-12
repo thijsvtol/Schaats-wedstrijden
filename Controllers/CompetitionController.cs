@@ -75,6 +75,49 @@ namespace schaatswedstrijden.Controllers
             return competitors;
         }
 
-        
+        public Skaters GetSkater(string name)
+        {
+            string[] split = name.Split(' ');
+            string givenname = split[0];
+            string familyname;
+            if(split.Count() > 2)
+            {
+                familyname = split[1] + " " + split[2];
+            }
+            else
+            {
+                familyname = split[1];
+            }
+            WebRequest request = WebRequest.Create("https://speedskatingresults.com/api/json/skater_lookup?familyname="+familyname+"&givenname=" + givenname);
+            WebResponse response = request.GetResponse();
+            Skaters skater;
+            using (Stream dataStream = response.GetResponseStream())
+            {
+                // Open the stream using a StreamReader for easy access.
+                StreamReader reader = new StreamReader(dataStream);
+                // Read the content.
+                string responseFromServer = reader.ReadToEnd();
+                skater = JsonConvert.DeserializeObject<Skaters>(responseFromServer);
+            }
+
+            return skater;
+        }
+
+        public Records GetPersonalBests(int skaterId)
+        {
+            WebRequest request = WebRequest.Create("https://speedskatingresults.com/api/json/personal_records?skater=" + skaterId);
+            WebResponse response = request.GetResponse();
+            Records records;
+            using (Stream dataStream = response.GetResponseStream())
+            {
+                // Open the stream using a StreamReader for easy access.
+                StreamReader reader = new StreamReader(dataStream);
+                // Read the content.
+                string responseFromServer = reader.ReadToEnd();
+                records = JsonConvert.DeserializeObject<Records>(responseFromServer);
+            }
+
+            return records;
+        }
     }
 }
