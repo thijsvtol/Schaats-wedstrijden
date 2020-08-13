@@ -1,0 +1,161 @@
+﻿<h1>Ranglijsten</h1>
+
+@if(ViewBag.Link != null)
+{
+    <a href="@ViewBag.Link" target="_blank"><strong>Download hier de ranglijst</strong></a>
+    <br /><br />
+}
+
+@{ 
+    DateTime now = DateTime.UtcNow;
+    int currentSeason = now.Year;
+    if(now.Month < 7)
+    {
+        currentSeason--;
+    }
+}
+<form action="Ranglijsten" method="post">
+    <div class="form">
+        <h5>Kies een seizoen:</h5>
+        <select name="seizoen">
+            <option value="*">All time</option>
+            @for (int i = currentSeason; 2014 < i; i--)
+            {
+                int nextyear = i + 1;
+                <option value="@i">@i-@nextyear</option>
+            }
+        </select><br>
+    </div>
+    <div class="form">
+        <h5>Kies afstand(en):</h5>
+        <select name="afstanden">
+            <option value="100">100 meter</option>
+            <option value="300">300 meter</option>
+            <option value="500">500 meter</option>
+            <option value="700">700 meter</option>
+            <option value="1000">1000 meter</option>
+            <option value="1500">1500 meter</option>
+            <option value="3000">3000 meter</option>
+            <option value="5000">5000 meter</option>
+            <option value="10000">10000 meter</option>
+            <option value="100%2B300">100-300 meter</option>
+            <option value="100%2B500">100-500 meter</option>
+            <option value="100%2B300%2B500">100-500-300 meter</option>
+            <option value="500%2B1000">500-1000 meter</option>
+            <option value="500%2B1500">500-1500 meter</option>
+            <option value="500%2B3000">500-3000 meter</option>
+            <option value="500%2B1000%2B1500">500-1000-1500 meter</option>
+            <option value="500%2B1500%2B3000">500-1500-3000 meter</option>
+            <option value="500%2B1500%2B5000%2B10000">Adelskalender</option>
+            <option value="100%2B300%2B500%2B700%2B1000%2B1500%2B3000%2B5000%2B10000">Alle afstanden</option>
+        </select><br>
+    </div>
+    <div class="form">
+        <h5>Kies Categorie:</h5>
+        <select name="categorie">
+            <option value="H*">Heren</option>
+            <option value="HP*">Heren pupillen</option>
+            <option value="HPF">Heren pupillen F</option>
+            <option value="HPE">Heren pupillen E</option>
+            <option value="HPD">Heren pupillen D</option>
+            <option value="HPC">Heren pupillen C</option>
+            <option value="HPA">Heren pupillen A</option>
+            <option value="HC*">Heren Junioren C</option>
+            <option value="HB*">Heren Junioren B</option>
+            <option value="HA*">Heren Junioren A</option>
+            <option value="HN*">Heren Neo-Senioren</option>
+            <option value="HS*">Heren Senioren</option>
+            <option value="H*5%2BH*0">Heren Masters</option>
+            <option value="D*">Dames</option>
+            <option value="DP*">Dames pupillen</option>
+            <option value="DPF">Dames pupillen F</option>
+            <option value="DPE">Dames pupillen E</option>
+            <option value="DPD">Dames pupillen D</option>
+            <option value="DPC">Dames pupillen C</option>
+            <option value="DPA">Dames pupillen A</option>
+            <option value="DC*">Dames Junioren C</option>
+            <option value="DB*">Dames Junioren B</option>
+            <option value="DA*">Dames Junioren A</option>
+            <option value="DN*">Dames Neo-Senioren</option>
+            <option value="DS*">Dames Senioren</option>
+            <option value="D*5%2BD*0">Dames Masters</option>
+        </select><br>
+    </div>
+    <div class="form">
+        <h5>Kies een Thuisbaan van de rijders:</h5>
+        <select name="thuisbaan">
+            <option value="">Geen</option>
+            <option value="ALK">Alkmaar (IJsbaan de Meent)</option>
+            <option value="AMS">Amsterdam (Stichting IJscomplex Jaap Edenbaan)</option>
+            <option value="ASS">Assen (Sport- en Evenementencentrum de Bonte Wever)</option>
+            <option value="BRE">Breda (Kunstijsbaan Breda)</option>
+            <option value="DNH">Den Haag (De Uithof)</option>
+            <option value="DEV">Deventer (Sport- en Recreatiecentrum de Scheg)</option>
+            <option value="DRO">Dronten (Leisure World Ice Center)</option>
+            <option value="EVN">Eindhoven (IJssportcentrum Eindhoven)</option>
+            <option value="ENS">Enschede (IJsbaan Twente)</option>
+            <option value="GEL">Geleen (Glanerbrook)</option>
+            <option value="GRO">Groningen (Kardinge)</option>
+            <option value="HAA">Haarlem (Kunstijsbaan Kennemerland)</option>
+            <option value="HVN">Heerenveen (Thialf)</option>
+            <option value="HRN">Hoorn (Kunstijsbaan de Westfries)</option>
+            <option value="LEE">Leeuwarden (Elfstedenhal)</option>
+            <option value="NYM">Nijmegen (Triavium)</option>
+            <option value="TIL">Tilburg (Ireen Wüst IJsbaan)</option>
+            <option value="UTR">Utrecht (Vechtsebanen)</option>
+        </select><br>
+    </div>
+    <div class="form">
+        <h5>De baan waar de tijd gereden moet zijn:</h5>
+        <select name="geredenbaan">
+            <option value="null">Alle banen</option>
+            <option value="ALK">Alkmaar (IJsbaan de Meent)</option>
+            <option value="AMS">Amsterdam (Stichting IJscomplex Jaap Edenbaan)</option>
+            <option value="ASS">Assen (Sport- en Evenementencentrum de Bonte Wever)</option>
+            <option value="BRE">Breda (Kunstijsbaan Breda)</option>
+            <option value="DNH">Den Haag (De Uithof)</option>
+            <option value="DEV">Deventer (Sport- en Recreatiecentrum de Scheg)</option>
+            <option value="DRO">Dronten (Leisure World Ice Center)</option>
+            <option value="EVN">Eindhoven (IJssportcentrum Eindhoven)</option>
+            <option value="ENS">Enschede (IJsbaan Twente)</option>
+            <option value="GEL">Geleen (Glanerbrook)</option>
+            <option value="GRO">Groningen (Kardinge)</option>
+            <option value="HAA">Haarlem (Kunstijsbaan Kennemerland)</option>
+            <option value="HVN">Heerenveen (Thialf)</option>
+            <option value="HRN">Hoorn (Kunstijsbaan de Westfries)</option>
+            <option value="LEE">Leeuwarden (Elfstedenhal)</option>
+            <option value="NYM">Nijmegen (Triavium)</option>
+            <option value="TIL">Tilburg (Ireen Wüst IJsbaan)</option>
+            <option value="UTR">Utrecht (Vechtsebanen)</option>
+        </select><br>
+    </div>
+    <div class="form">
+        <h5>Kies een optionele kolom:</h5>
+        <select name="optioneel">
+            <option value="null">Geen</option>
+            <option value="ClubShortName">Vereniging</option>
+            <option value="Seasonsbest">Seizoenstijd</option>
+            <option value="HomeVenueCode">Thuisbaan</option>
+            <option value="LicenseKey">Relatienummer</option>
+            <option value="NationalityCode">Nationaliteit</option>
+        </select><br>
+    </div>
+    <div class="form">
+        <h5>Kies een bestandstype:</h5>
+        <select name="type">
+            <option value="Pdf">PDF</option>
+            <option value="OoXmlSpreadsheet">Excel</option>
+            <option value="OoXmlDocument">Word</option>
+            <option value="OoXmlPresentation">Powerpoint</option>
+        </select><br>
+    </div>
+    <div class="form">
+        <h5>Toon aantal rijders (Laat leeg wanneer je geen max wilt):</h5>
+        <input type="text" name="maxdeelnemers" size="10" /><br />
+    </div>
+    <div class="form">
+        <h5>MAX aantal punten (Laat leeg wanneer je geen max wilt):</h5>
+        <input type="text" name="maxpunten" size="10" /><br />
+    </div><br />
+    <input class="button" type="submit" value="Verstuur">
+</form>
