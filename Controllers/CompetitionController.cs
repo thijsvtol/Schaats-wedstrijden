@@ -119,5 +119,22 @@ namespace schaatswedstrijden.Controllers
 
             return records;
         }
+
+        public Licence GetLicenceByRelatienummer(string relatienummer)
+        {
+            WebRequest request = WebRequest.Create("https://inschrijven.schaatsen.nl/api/licenses/KNSB/SpeedSkating.LongTrack/" + relatienummer);
+            WebResponse response = request.GetResponse();
+            Licence licence;
+            using (Stream dataStream = response.GetResponseStream())
+            {
+                // Open the stream using a StreamReader for easy access.
+                StreamReader reader = new StreamReader(dataStream);
+                // Read the content.
+                string responseFromServer = reader.ReadToEnd();
+                licence = JsonConvert.DeserializeObject<Licence>(responseFromServer);
+            }
+
+            return licence;
+        }
     }
 }

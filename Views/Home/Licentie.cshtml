@@ -1,0 +1,40 @@
+﻿@using schaatswedstrijden.Controllers;
+
+@{
+    try
+    {
+        string licencenumber = ViewContext.RouteData.Values["id"].ToString();
+        CompetitionController competitionController = new CompetitionController();
+        Licence licence = competitionController.GetLicenceByRelatienummer(licencenumber);
+
+        try
+        {
+            <h2>@licence.personName.firstName @licence.personName.surnamePrefix @licence.personName.surname</h2>
+            <p>@licence.key</p>
+            @Html.ActionLink("Bekijk PR's / Wedstrijd resultaten van deze rijder", "Rijders", new { id = licence.personName.firstName+" "+licence.personName.surnamePrefix +" "+licence.personName.surname })
+
+            <h3>Informatie</h3>
+            <p>Categorie: @licence.category</p>
+            <p>Thuisbaan: @licence.venueCode</p>
+            <p>Geldigheid: <i>@licence.validFrom tot @licence.validTo</i></p>
+            <p>Transponders: @licence.transponder1, @licence.transponder2</p>
+
+            <h3>Club</h3>
+            <p>@licence.club.fullName <i>(@licence.club.code)</i></p>
+            <p>Land: @licence.club.countryCode</p>
+        }
+        catch
+        {
+            <h3>Gegevens van relatienummer: @licencenumber kon niet geladen worden.</h3>
+        }
+
+    }
+    catch
+    {
+        <h1>Licentie opzoeken</h1>
+        <form onsubmit="return false">
+            Relatienummer: <input type="text" name="relatienummer" id="relatienummer" />
+            <input type="submit" onclick="getRelatienummer()" />
+        </form>
+    }
+}

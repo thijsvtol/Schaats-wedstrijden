@@ -67,7 +67,7 @@
                         <td style="@style" class="@css">@Html.ActionLink(comp.competitor.fullName, "Rijders", new { id = comp.competitor.fullName })</td>
                         <td style="@style" class="@css">@comp.competitor.category</td>
                         <td style="@style" class="@css">@comp.competitor.clubFullName</td>
-                        <td style="@style" class="@css">@comp.competitor.licenseKey</td>
+                        <td style="@style" class="@css">@Html.ActionLink(comp.competitor.licenseKey, "Licentie", new { id = comp.competitor.licenseKey })</td>
                         <td style="@style" class="@css">@comp.competitor.nationalityCode</td>
                         <td style="@style" class="@css">
                             @comp.competitor.added.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)

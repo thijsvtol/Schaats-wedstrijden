@@ -100,6 +100,11 @@ namespace schaatswedstrijden.Controllers
             return View();
         }
 
+        public ActionResult Licentie(string licentie)
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

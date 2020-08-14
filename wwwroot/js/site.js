@@ -23,3 +23,7 @@ function getCookie(name) {
 function getSkater() {
     window.location.href = "Rijders/"+document.getElementById("name").value;
 }
+
+function getRelatienummer() {
+    window.location.href = "Licentie/" + document.getElementById("relatienummer").value;
+}
