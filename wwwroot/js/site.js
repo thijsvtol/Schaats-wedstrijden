@@ -27,3 +27,27 @@ function getSkater() {
 function getRelatienummer() {
     window.location.href = "Licentie/" + document.getElementById("relatienummer").value;
 }
+
+function getSeasonBest(skater) {
+    var season = document.getElementById("season").value;
+    $.get("https://speedskatingresults.com/api/json/season_bests?skater=" + skater + "&start=" + season).done(function (data) {
+        try {
+            setSeasonBest(data.seasons[0].records);
+            console.log(data.seasons[0].records);
+        }
+        catch{
+            console.error("no records found");
+            document.getElementById("sb").innerHTML = "Deze rijder heeft in dit seizoen (nog) niet gereden";
+        }
+    }).fail(function () {
+        console.error("no records found");
+        document.getElementById("sb").innerHTML = "Deze rijder heeft in dit seizoen (nog) niet gereden";
+    });
+}
+
+function setSeasonBest(sb) {
+    output = "<table style='width: 100%'>";
+    sb.forEach(element => output += "<tr><td>"+element.distance + "</td><td>" + element.time + "</td><td>" + element.date + "</td><td>" + element.location + "</td></tr>")
+    output += "</table>"
+    document.getElementById("sb").innerHTML = output;
+}
