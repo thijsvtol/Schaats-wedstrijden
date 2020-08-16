@@ -25,7 +25,7 @@ namespace schaatswedstrijden.Models
     {
         public int distance { get; set; }
         public string time { get; set; }
-        public string date { get; set; }
+        public DateTime date { get; set; }
         public string location { get; set; }
     }
 
