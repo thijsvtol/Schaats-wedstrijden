@@ -5,6 +5,10 @@
     string id = ViewContext.RouteData.Values["ID"].ToString();
     CompetitionController competitionController = new CompetitionController();
     Root competition = competitionController.GetCompetition(id);
+
+    DistanceCombinationController distanceCombinationController = new DistanceCombinationController();
+    List<DistanceCombination> distanceCombinations = distanceCombinationController.GetDistanceCombinations(id);
+
     CultureInfo ci = new CultureInfo("nl-NL");
     ViewData["Title"] = competition.name;
 }
