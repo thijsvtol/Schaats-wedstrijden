@@ -105,6 +105,15 @@ namespace schaatswedstrijden.Controllers
             return View();
         }
 
+        public ActionResult Rondebord()
+        {
+            return View();
+        }
+
+        public ActionResult Tijdschemas()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

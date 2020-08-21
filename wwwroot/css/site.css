@@ -186,3 +186,28 @@ body {
 .wi {
     max-width: 500px;
 }
+
+.label {
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    float: left;
+}
+
+.cat {
+    background-color: #3498db;
+}
+
+.nr {
+    background-color: #df691a;
+}
+
+.nowrap {
+    white-space: nowrap;
+}

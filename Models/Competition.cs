@@ -46,7 +46,7 @@ namespace schaatswedstrijden.Models
         public bool isClosed { get; set; }
         public bool isRegularOpen { get; set; }
         public bool isLateOpen { get; set; }
-        public int? maxCompetitors { get; set; }
+        public string maxCompetitors { get; set; }
         public int competitorListGrouping { get; set; }
         public bool allowMultipleCombinations { get; set; }
         public List<object> distanceCombinations { get; set; }

@@ -11,6 +11,8 @@
 
     CultureInfo ci = new CultureInfo("nl-NL");
     ViewData["Title"] = competition.name;
+
+    string color;
 }
 
 <h1>@competition.name</h1>
@@ -113,7 +115,140 @@
         <p>@Html.Raw(competition.settings.invitationFooter)</p>
         <br />
     </section>
-    
 }
 
+    <section class="context">
+        <h2>Afstandscombinaties</h2>
+        @foreach (DistanceCombination distanceCombination in distanceCombinations)
+        {
+            if (distanceCombination.isClosed)
+            {
+                color = "#f2dede";
+            }
+            else
+            {
+                color = "#ffffff";
+            }
+            <strong class="label nr">@distanceCombination.number</strong><p style="float:left;">@distanceCombination.name &nbsp;</p>
+            <p class="label cat">@distanceCombination.categoryFilter</p><br />
+            <table style="width:100%">
+                <tbody>
+                    <tr>
+                        <th>Kosten</th>
+                        <th>Aanvang</th>
+                        <th>@if (distanceCombination.opens != null)
+                        {
+                            <p>Inschrijving opent om</p>
+                        }</th>
+                        <th>Onderdelen</th>
+                        <th>Deelnemers</th>
+                        <th>Baankaart</th>
+                        <th>Tijdslimiet</th>
+                        <th>Clubs</th>
+                        <th>Thuisbanen</th>
+                    </tr>
+                    <tr style="background-color:@color;">
+                        @{ List<Distance> distances = distanceCombination.distances.OrderBy(o => o.number).ToList();}
+                        <td>
+                            wedstrijd: @if (distanceCombination.price == null)
+                            {
+                                <b>gratis</b>}
+                            else
+                            {
+                                <b>€@distanceCombination.price</b>
+                            }
 
+                            @{
+                                if (distanceCombination.allowedRegistrations == null)
+                                {
+                                    <p><i>Alleen organisator kan toevoegen</i></p>
+                                }
+                                else if (distanceCombination.allowedRegistrations == "3")
+                                {
+                                    <p>+dag licentie</p>
+                                }
+                                else if (distanceCombination.allowedRegistrations == "4")
+                                {
+                                    <p>selectie</p>
+                                }
+                                else if (distanceCombination.allowedRegistrations == "7")
+                                {
+                                    <p>selectie</p>
+                                    <p>+dag licentie</p>
+                                }
+                                else if (distanceCombination.allowedRegistrations == "9")
+                                {
+                                    <p>+actieve leden</p>
+                                }
+                                else if (distanceCombination.allowedRegistrations == "11")
+                                {
+                                    <p>+dag licentie</p>
+                                    <p>+actieve leden</p>
+                                }
+                                else if (distanceCombination.allowedRegistrations == "12")
+                                {
+                                    <p>selectie</p>
+                                    <p>+actieve leden</p>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                try
+                                {
+                                    <p>@distances.FirstOrDefault().starts.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
+                                }
+                                catch
+                                {
+                                    <p>@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @if (distanceCombination.opens != null)
+                            {
+                                DateTime opens = DateTime.Parse(distanceCombination.opens);
+                                <p>@opens.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+                            }
+                        </td>
+                    <td style="padding-top:15px;">
+                        @foreach (Distance distance in distances)
+                        {
+                            <p class="label nr">@distance.number </p><p> @distance.value</p>
+                        }
+                    </td>
+                    <td>
+                        <p style="float:left;">@distanceCombination.competitorsConfirmed/</p>@if (distanceCombination.maxCompetitors != null)
+                        {<p>@distanceCombination.maxCompetitors</p> }
+                    else
+                    { <i>geen max</i>}
+                    </td>
+                    <td>
+                        @if (distanceCombination.requireVenueSubscription == true)
+                        {
+                            <p>vereist</p>
+                        }
+                    </td>
+                    <td>
+                        @if (distanceCombination.limitTime != null)
+                        {
+                            <p>@distanceCombination.limitTime<br /> (@distanceCombination.limitTimeDistanceValue m)</p>
+                        }
+                    </td>
+                    <td>
+                        @if (distanceCombination.clubCodeFilter != null)
+                        {
+                            <p>@distanceCombination.clubCodeFilter</p>
+                        }
+                    </td>
+                    <td>
+                        @if (distanceCombination.homeVenueFilter != null)
+                        {
+                            <p>@distanceCombination.homeVenueFilter</p>
+                        }
+                    </td>
+                    </tr>
+                </tbody>
+            </table><br />
+        }
+    </section>

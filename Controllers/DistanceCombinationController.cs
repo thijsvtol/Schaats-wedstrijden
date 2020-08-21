@@ -57,6 +57,7 @@ namespace schaatswedstrijden.Controllers
                         distanceCombination.limitTime = distanceCombinationNew.limitTime;
                         distanceCombination.clubCodeFilter = distanceCombinationNew.clubCodeFilter;
                         distanceCombination.homeVenueFilter = distanceCombinationNew.homeVenueFilter;
+                        distanceCombination.allowedRegistrations = distanceCombinationNew.allowedRegistrations;
                     }
                 }
             }

@@ -15,8 +15,18 @@
             currentSeason--;
         }
 
-        <h1>@skater</h1>
-        <p>@skaters.skaters.FirstOrDefault().country  - @skaters.skaters.FirstOrDefault().category </p>
+        string gender;
+        if (skaters.skaters.FirstOrDefault().gender == "m")
+        {
+            gender = "H";
+        }
+        else
+        {
+            gender = "D";
+        }
+
+        <h1>@skaters.skaters.FirstOrDefault().givenname @skaters.skaters.FirstOrDefault().familyname</h1>
+        <p>@skaters.skaters.FirstOrDefault().country  - @gender@skaters.skaters.FirstOrDefault().category </p>
         <h2>PR's</h2>
         <table style="width:100%">
             @foreach (Record record in records.records)

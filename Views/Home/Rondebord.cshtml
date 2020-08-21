@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        @@media screen and (orientation:portrait) {
+            .inner {
+                display: none;
+            }
+
+            .rotate {
+                text-align: center;
+            }
+        }
+
+        @@media screen and (orientation:landscape) {
+            .aside {
+                height: 100vh;
+                width: 10vw;
+                float: left;
+            }
+
+            .asidenumber {
+                height: 9.6vh;
+                text-align: center;
+                font-size: 5vw;
+                border: 0.2vh solid black;
+                line-height: 1;
+                cursor: pointer;
+            }
+
+            .centernumber {
+                width: 39vw;
+                float: left;
+                font-size: 80vh;
+                text-align: center;
+                height: 100vh;
+            }
+
+            .right {
+                color: red;
+            }
+
+            body {
+                margin: 0;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+
+            .rotate {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function setRightNumber(value) {
+            document.getElementById("right").innerHTML = value;
+        }
+
+        function setLeftNumber(value) {
+            document.getElementById("left").innerHTML = value;
+        }
+    </script>
+    <h1 class="rotate">Draai je scherm naar horizontaal.</h1>
+    <object class="inner">
+        <div class="aside">
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">0</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">1</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">2</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">3</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">4</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">5</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">6</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">7</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">8</section>
+            <section class="asidenumber" onclick="setLeftNumber(this.innerHTML)">9</section>
+        </div>
+        <div id="left" class="centernumber">0</div>
+        <div id="right" class="centernumber right">0</div>
+        <div class="aside">
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">0</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">1</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">2</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">3</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">4</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">5</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">6</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">7</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">8</section>
+            <section class="asidenumber right" onclick="setRightNumber(this.innerHTML)">9</section>
+        </div>
+    </object>
+</body>
+</html>

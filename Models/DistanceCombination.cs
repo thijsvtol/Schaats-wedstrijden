@@ -17,18 +17,19 @@ namespace schaatswedstrijden.Models
         public string starts { get; set; }
         public int competitorsTotal { get; set; }
         public int competitorsPending { get; set; }
-        public int competitorsConfirmed { get; set; }
+        public string competitorsConfirmed { get; set; }
         public int competitorsWithdrawn { get; set; }
         public string opens { get; set; }
         public string closes { get; set; }
         public string price { get; set; }
-        public int maxCompetitors { get; set; }
+        public string maxCompetitors { get; set; }
         public bool requireVenueSubscription { get; set; }
         public string limitTimeDistanceValue { get; set; }
         public string limitTime { get; set; }
         public string clubCodeFilter { get; set; }
         public string homeVenueFilter { get; set; }
         public bool isClosed { get; set; }
+        public string allowedRegistrations { get; set; }
     }
 
     public class Distance
@@ -50,7 +51,7 @@ namespace schaatswedstrijden.Models
         public bool isClosed { get; set; }
         public bool isRegularOpen { get; set; }
         public bool isLateOpen { get; set; }
-        public int maxCompetitors { get; set; }
+        public string maxCompetitors { get; set; }
         public int competitorListGrouping { get; set; }
         public bool allowMultipleCombinations { get; set; }
         public List<DistanceCombination> distanceCombinations { get; set; }

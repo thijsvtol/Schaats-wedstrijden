@@ -73,24 +73,24 @@
 
                     @try
                     {
-                        <td class="@style">@competition.venue.address.city</td>
+                        <td class="@style nowrap">@competition.venue.address.city</td>
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e.Message + competition.id);
                     }
 
-                    <td class="@style">@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm")</td>
+                    <td class="@style nowrap">@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm")</td>
 
                     @if (competition.resultsStatus == 2 || competition.settings.closes.AddHours(1) < DateTime.Now)
                     {
-                        <td class="@style">
+                        <td class="@style nowrap">
                             gesloten
                         </td>
-                        <td class="@style">
+                        <td class="@style nowrap">
                             <a href="/Home/Deelnemers/@competition.id">&#9924 Deelnemers</a>
                         </td>
-                        <td class="@style">
+                        <td class="@style nowrap">
                             @if (competition.resultsStatus == 2)
                             {
                                 <a href="https://emandovantage.com/api/competitions/@competition.id/reports/Results/Pdf?optionalColumns=ClubShortName">&#9782 Uitslag</a>
@@ -99,21 +99,19 @@
                     }
                     else if (competition.settings.opens.AddHours(1) < DateTime.Now)
                     {
-                        <td class="@style">
+                        <td class="@style nowrap">
                             <a href="https://inschrijven.schaatsen.nl/#/wedstrijd/@competition.id/inschrijven/kies-licentie">&#9998 Inschrijven</a>
                         </td>
-                        <td class="@style">
+                        <td class="@style nowrap">
                             <a href="/Home/Deelnemers/@competition.id">&#9924 Deelnemers</a>
                         </td>
-                        <td class="@style"></td>
+                        <td colspan="2" class="@style nowrap"></td>
                     }
                     else
                     {
-                        <td class="@style">
+                        <td colspan="3" class="@style nowrap">
                             Open om @competition.settings.opens.AddHours(1).ToString("dd-MM-yyyy HH:mm")
                         </td>
-                        <td class="@style"></td>
-                        <td class="@style"></td>
                     }
                 </tr>
                 counter++;
