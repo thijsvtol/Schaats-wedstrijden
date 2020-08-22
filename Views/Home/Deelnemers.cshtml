@@ -19,7 +19,7 @@
 
 @foreach (DistanceCombinationCompetitors competitor in competitors)
 {
-    <h1 class="label nr" style="font-size: 24px;">@competitor.number</h1><h1>@competitor.name</h1>
+    <p class="label nr" style="font-size: 24px; margin-top:10px;">@competitor.number</p><h1>@competitor.name</h1>
     <div class="tg-wrap">
         <table id="tg-rdTIH" class="tg">
             <thead>
@@ -67,7 +67,7 @@
                         <td style="@style" class="@css">@Html.ActionLink(comp.competitor.fullName, "Rijders", new { id = comp.competitor.fullName })</td>
                         <td style="@style" class="@css">@comp.competitor.category</td>
                         <td style="@style" class="@css">@comp.competitor.clubFullName</td>
-                        <td style="@style" class="@css">@Html.ActionLink(comp.competitor.licenseKey, "Licentie", new { id = comp.competitor.licenseKey })</td>
+                        <td style="@style" class="@css">@try { Html.ActionLink(comp.competitor.licenseKey, "Licentie", new { id = comp.competitor.licenseKey }); } catch { }</td>
                         <td style="@style" class="@css">@comp.competitor.nationalityCode</td>
                         <td style="@style" class="@css">
                             @comp.competitor.added.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)
@@ -97,7 +97,7 @@
                 }
             </tbody>
         </table>
-        @{total += sortedList.Where(x => x.competitor.status == 1).Count(); }
+        @{total += sortedList.Where(x => x.status == 1).Count(); }
         <p>@sortedList.Where(x => x.status == 1).Count() bevestigd, @sortedList.Where(x => x.status == 0).Count() onbevestigd en @sortedList.Where(x => x.status == 2).Count() afmeldingen</p>
     </div>
 }

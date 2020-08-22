@@ -198,6 +198,7 @@ body {
     vertical-align: baseline;
     border-radius: .25em;
     float: left;
+    margin-right: 5px;
 }
 
 .cat {

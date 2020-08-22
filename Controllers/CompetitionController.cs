@@ -36,7 +36,7 @@ namespace schaatswedstrijden.Controllers
 
             // Close the response.
             response.Close();
-            List<Root> sortedList = dataObjects.OrderBy(x => x.ends).ToList();
+            List<Root> sortedList = dataObjects.OrderBy(x => x.starts).ToList();
 
             return sortedList;
         }
