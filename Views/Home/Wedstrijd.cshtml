@@ -38,15 +38,15 @@
           <p>@competition.location</p>
           <h2>Wedstrijd informatie</h2>
 
-          <aside style="float:left; margin-right: 50px;">
-              <p><strong>Start: </strong>@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci) </p>
-              <p><strong>Eindigt: </strong>@competition.ends.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+          <aside style="white-space: nowrap;">
+              <p><strong>Start: </strong>@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)<br />
+              <strong>Eindigt: </strong>@competition.ends.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
               <br />
           </aside>
-          <aside>
-              <p><strong>Gaat open om: </strong>@competition.settings.opens.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
-              <p><strong>Sluit om: </strong>@competition.settings.closes.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
-              <p><strong>Afmelden tot: </strong>@competition.settings.withdrawUntil.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+          <aside style="white-space: nowrap;">
+              <p><strong>Gaat open om: </strong>@competition.settings.opens.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)<br />
+              <strong>Sluit om: </strong>@competition.settings.closes.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)<br />
+              <strong>Afmelden tot: </strong>@competition.settings.withdrawUntil.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
               <br />
           </aside>
           
