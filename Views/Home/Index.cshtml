@@ -1,34 +1,7 @@
 ﻿@using schaatswedstrijden.Controllers;
-@using Microsoft.AspNetCore.Mvc;
-@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "Wedstrijden";
-    CompetitionController competitionController = new CompetitionController();
-    List<Root> comp = competitionController.GetAllCompetitions();
-    int counter = 0;
-    string style = "tg-buh4";
-    string cookieVenue = Context.Request.Cookies["venue"];
-    List<Root> competitions;
-    if(cookieVenue == null || cookieVenue == "")
-    {
-        competitions = comp;
-    }
-    else
-    {
-        foreach (Root root in comp.ToList())
-        {
-            try
-            {
-                string s = root.venue.code;
-            }
-            catch
-            {
-                comp.Remove(root);
-            }
-        }
-        competitions = comp.Where(x => x.venue.code == cookieVenue).ToList();
-    }
 }
 
 
@@ -58,65 +31,10 @@
 <div class="tg-wrap">
     <table id="competitions" class="tg" style="width: 100%;">
         <tbody>
-            @foreach (Root competition in competitions)
-            {
-                if (counter % 2 == 0)
-                {
-                    style = "tg-buh4";
-                }
-                else
-                {
-                    style = "tg-0lax";
-                }
-                <tr>
-                    <td class="@style wi">@Html.ActionLink(competition.name, "Wedstrijd", new { ID = competition.id })</td>
-
-                    @try
-                    {
-                        <td class="@style nowrap">@competition.venue.address.city</td>
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message + competition.id);
-                    }
-
-                    <td class="@style nowrap">@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm")</td>
-
-                    @if (competition.resultsStatus == 2 || competition.settings.closes.AddHours(1) < DateTime.Now)
-                    {
-                        <td class="@style nowrap">
-                            gesloten
-                        </td>
-                        <td class="@style nowrap">
-                            <a href="/Home/Deelnemers/@competition.id">&#9924 Deelnemers</a>
-                        </td>
-                        <td class="@style nowrap">
-                            @if (competition.resultsStatus == 2)
-                            {
-                                <a href="https://emandovantage.com/api/competitions/@competition.id/reports/Results/Pdf?optionalColumns=ClubShortName">&#9782 Uitslag</a>
-                            }
-                        </td>
-                    }
-                    else if (competition.settings.opens.AddHours(1) < DateTime.Now)
-                    {
-                        <td class="@style nowrap">
-                            <a href="https://inschrijven.schaatsen.nl/#/wedstrijd/@competition.id/inschrijven/kies-licentie">&#9998 Inschrijven</a>
-                        </td>
-                        <td class="@style nowrap">
-                            <a href="/Home/Deelnemers/@competition.id">&#9924 Deelnemers</a>
-                        </td>
-                        <td colspan="2" class="@style nowrap"></td>
-                    }
-                    else
-                    {
-                        <td colspan="3" class="@style nowrap">
-                            Open om @competition.settings.opens.AddHours(1).ToString("dd-MM-yyyy HH:mm")
-                        </td>
-                    }
-                </tr>
-                counter++;
-            }
         </tbody>
     </table>
 </div>
-<script>setVenueFromCookie()</script>
+<script>
+    setVenueFromCookie()
+    getCompetitions()
+</script>

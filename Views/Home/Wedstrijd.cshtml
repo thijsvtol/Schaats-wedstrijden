@@ -16,7 +16,7 @@
 }
 
 <h1>@competition.name</h1>
-<h4 style="color:gray">@competition.starts.AddHours(1).ToString("dddd, dd MMMM yyyy", ci)</h4>
+<h4 style="color:gray">@competition.starts.AddHours(2).ToString("dddd, dd MMMM yyyy", ci)</h4>
 <a href="https://emandovantage.com/api/competitions/@id/reports/CompetitorList/Pdf?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Deelnemers-_PDF_-blue" /></a>
 <a href="https://emandovantage.com/api/competitions/@id/reports/Draws/Pdf?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Startlijst-_PDF_-blue" /></a>
 <a href="https://emandovantage.com/api/competitions/@id/reports/FillIns/Pdf?optionalColumns=ClubShortName"><img src="https://img.shields.io/badge/Jurylijst-_PDF_-blue" /></a>
@@ -39,14 +39,14 @@
           <h2>Wedstrijd informatie</h2>
 
           <aside style="white-space: nowrap;">
-              <p><strong>Start: </strong>@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)<br />
-              <strong>Eindigt: </strong>@competition.ends.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
+              <p><strong>Start: </strong>@competition.starts.AddHours(2).ToString("dd-MM-yyyy HH:mm", ci)<br />
+              <strong>Eindigt: </strong>@competition.ends.AddHours(2).ToString("dd-MM-yyyy HH:mm", ci)</p>
               <br />
           </aside>
           <aside style="white-space: nowrap;">
-              <p><strong>Gaat open om: </strong>@competition.settings.opens.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)<br />
-              <strong>Sluit om: </strong>@competition.settings.closes.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)<br />
-              <strong>Afmelden tot: </strong>@competition.settings.withdrawUntil.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
+              <p><strong>Gaat open om: </strong>@competition.settings.opens.AddHours(2).ToString("dd-MM-yyyy HH:mm", ci)<br />
+              <strong>Sluit om: </strong>@competition.settings.closes.AddHours(2).ToString("dd-MM-yyyy HH:mm", ci)<br />
+              <strong>Afmelden tot: </strong>@competition.settings.withdrawUntil.AddHours(2).ToString("dd-MM-yyyy HH:mm", ci)</p>
               <br />
           </aside>
           
@@ -88,7 +88,7 @@
           }
           else
           {
-              <p>Uitslag is officieel gemaakt op: @competition.madeOfficial.Value.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+              <p>Uitslag is officieel gemaakt op: @competition.madeOfficial.Value.AddHours(2).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
           }
           <br />
       </section>
@@ -196,11 +196,11 @@
                             @{
                                 try
                                 {
-                                    <p>@distances.FirstOrDefault().starts.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
+                                    <p>@distances.FirstOrDefault().starts.AddHours(2).ToString("dd-MM-yyyy HH:mm", ci)</p>
                                 }
                                 catch
                                 {
-                                    <p>@competition.starts.AddHours(1).ToString("dd-MM-yyyy HH:mm", ci)</p>
+                                    <p>@competition.starts.AddHours(2).ToString("dd-MM-yyyy HH:mm", ci)</p>
                                 }
                             }
                         </td>
@@ -208,7 +208,7 @@
                             @if (distanceCombination.opens != null)
                             {
                                 DateTime opens = DateTime.Parse(distanceCombination.opens);
-                                <p>@opens.AddHours(1).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
+                                <p>@opens.AddHours(2).ToString("dd-MM-yyyy HH:mm:ss", ci)</p>
                             }
                         </td>
                     <td style="padding-top:15px;">
