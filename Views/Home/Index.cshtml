@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Wedstrijden";
+    CompetitionController competitionController = new CompetitionController();
 }
 
 
@@ -34,7 +35,7 @@
         </tbody>
     </table>
 </div>
-<script>
+<script type="text/javascript">
     setVenueFromCookie()
-    getCompetitions()
+    getCompetitions(@Html.Raw(competitionController.GetAllCompetitionsRAW()));
 </script>

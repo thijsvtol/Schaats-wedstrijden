@@ -131,14 +131,10 @@ function createDateObject1(date) {
 }
 
 
-function getCompetitions() {
+function getCompetitions(competitons) {
     var venue = getCookie("venue")
-    $.get("https://inschrijven.schaatsen.nl/api/competitions").done(function (data) {
-        COMP = data;
-        setCompetitions(venue);
-    }).fail(function () {
-        console.error("Kon geen wedstrijden ophalen");
-    });
+    COMP = competitons;
+    setCompetitions(venue);
 }
 
 function setCompetitions(venue) {

@@ -41,6 +41,12 @@ namespace schaatswedstrijden.Controllers
             return sortedList;
         }
 
+        public string GetAllCompetitionsRAW()
+        {
+            WebClient wc = new WebClient();
+            return wc.DownloadString("https://inschrijven.schaatsen.nl/api/competitions");
+        }
+
         public Root GetCompetition(string id)
         {
             WebRequest request = WebRequest.Create("https://knsbregistrations.azurewebsites.net/api/competitions/" + id);
