@@ -157,16 +157,25 @@ function setCompetitions(venue) {
 }
 
 function filterWithVenue(style, output, venue) {
+    var counter = 0;
     //loop through array
     for (var i = 0, len = COMP.length; i < len; i++) {
         if (COMP[i].discipline == "SpeedSkating.LongTrack" && COMP[i].venue.code == venue) {
-            if (i % 2 == 0) {
+            var output1 = "";
+
+            if (counter % 2 == 0) {
                 style = "tg-buh4";
             }
             else {
                 style = "tg-0lax";
             }
-            output += "<tr><td class='" + style + "' style='max-width:400px;'><a href='Home/Wedstrijd/" + COMP[i].id + "'>" + COMP[i].name + "</a></td>";
+
+            if (COMP[i].test == true) {
+                output1 += "<span class='lbl warning'>Verborgen</span> ";
+            }
+
+            output += "<tr><td class='" + style + "' style='max-width:400px;'>" + output1 + "<a href='Home/Wedstrijd/" + COMP[i].id + "'>" + COMP[i].name + "</a></td>";
+
             try {
                 output += "<td class='" + style + " nowrap'>" + COMP[i].venue.address.city + "</td>";
             }
@@ -198,6 +207,7 @@ function filterWithVenue(style, output, venue) {
                 var closesDateTime = createDateObject(COMP[i].settings.opens)
                 output += "Open om " + closesDateTime + "</td>";
             }
+            counter++;
         }
     }
     return output
@@ -207,13 +217,21 @@ function filterWithoutVenue(style, output) {
     //loop through array
     for (var i = 0, len = COMP.length; i < len; i++) {
         if (COMP[i].discipline == "SpeedSkating.LongTrack") {
+            var output1 = "";
+
             if (i % 2 == 0) {
                 style = "tg-buh4";
             }
             else {
                 style = "tg-0lax";
             }
-            output += "<tr><td class='" + style + "'><a href='Home/Wedstrijd/" + COMP[i].id + "'>" + COMP[i].name + "</a></td>";
+
+            if (COMP[i].test == true) {
+                output1 += "<span class='lbl warning'>Verborgen</span> ";
+            }
+
+            output += "<tr><td class='" + style + "' style='max-width:400px;'>" + output1 + "<a href='Home/Wedstrijd/" + COMP[i].id + "'>" + COMP[i].name + "</a></td>";
+
             try {
                 output += "<td class='" + style + " nowrap'>" + COMP[i].venue.address.city + "</td>";
             }
