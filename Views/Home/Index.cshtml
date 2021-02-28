@@ -29,6 +29,8 @@
     <option value="UTR">Utrecht (Vechtsebanen)</option>
 </select>
 <br /><br />
+<input id="oldCompetitions" type="checkbox" onclick="getOldCompetitions()" /> Oude wedstrijden tonen
+<br /><br />
 <div class="tg-wrap">
     <table id="competitions" class="tg" style="width: 100%;">
         <tbody>
@@ -38,4 +40,7 @@
 <script type="text/javascript">
     setVenueFromCookie()
     getCompetitions(@Html.Raw(competitionController.GetAllCompetitionsRAW()));
+    function getOldCompetitions() {
+        getCompetitions(@Html.Raw(competitionController.GetAllCompetitionsRAW()));
+    }
 </script>

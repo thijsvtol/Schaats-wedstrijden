@@ -22,7 +22,7 @@ function getCookie(name) {
 }
 
 function getSkater() {
-    window.location.href = "Rijders/"+document.getElementById("name").value;
+    window.location.href = "Rijders/" + document.getElementById("name").value;
 }
 
 function getRelatienummer() {
@@ -133,7 +133,22 @@ function createDateObject1(date) {
 
 function getCompetitions(competitons) {
     var venue = getCookie("venue")
-    COMP = competitons;
+    var checkBox = document.getElementById("oldCompetitions");
+    if (checkBox.checked == false) {
+        var recentCompetitions = [];
+        var today = new Date();
+        var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 8);
+        for (var i = 0, len = competitons.length; i < len; i++) {
+            var competitionDate = new Date(competitons[i].starts);
+            if (competitionDate.getTime() > lastWeek.getTime()) {
+                recentCompetitions.push(competitons[i])
+            }
+        }
+        COMP = recentCompetitions;
+    }
+    else {
+        COMP = competitons;
+    }
     setCompetitions(venue);
 }
 
@@ -152,8 +167,8 @@ function setCompetitions(venue) {
     else {
         output = filterWithVenue(style, output, venue)
     }
-    
-    document.getElementById("competitions").innerHTML = output+"</tbody>";
+
+    document.getElementById("competitions").innerHTML = output + "</tbody>";
 }
 
 function filterWithVenue(style, output, venue) {
@@ -186,7 +201,6 @@ function filterWithVenue(style, output, venue) {
             var startDateTime = createDateObject(COMP[i].starts)
 
             output += "<td class='" + style + " nowrap'>" + startDateTime + "</td>";
-            console.log(COMP[i].name)
 
             if (COMP[i].resultsStatus == 2 || new Date(COMP[i].settings.closes) < new Date()) {
                 output += "<td class='" + style + "'>gesloten</td>";
@@ -242,7 +256,6 @@ function filterWithoutVenue(style, output) {
             var startDateTime = createDateObject(COMP[i].starts)
 
             output += "<td class='" + style + " nowrap'>" + startDateTime + "</td>";
-            console.log(COMP[i].name)
 
             if (COMP[i].resultsStatus == 2 || new Date(COMP[i].settings.closes) < new Date()) {
                 output += "<td class='" + style + "'>gesloten</td>";
